@@ -7,7 +7,7 @@ from Arbitrageur import Arbitrageur
 from Orderbook import Orderbook
 import numpy as np
 
-
+f = ' {:7.4f}'
 def print_stats(stats):
 
     print('AGG      ASK        BID        PRICE      ITERATIONS')
@@ -18,13 +18,13 @@ def print_stats(stats):
     maximum = stats.max(axis=0)
     minimum = stats.min(axis=0)
 
-    print('mean {:10.4f} {:10.4f} {:10.4f} {:10.4f}'.\
+    print(('mean' + f + f + f + f).\
           format(average[0], average[1], average[2], average[3]))
-    print('std  {:10.4f} {:10.4f} {:10.4f} {:10.4f}'.\
+    print(('std' + f + f + f + f).\
           format(standarddev[0], standarddev[1], standarddev[2], standarddev[3]))
-    print('min  {:10.4f} {:10.4f} {:10.4f} {:10.4f}'.\
+    print(('min' + f + f + f + f).\
           format(minimum[0], minimum[1], minimum[2], minimum[3]))
-    print('max  {:10.4f} {:10.4f} {:10.4f} {:10.4f}'.\
+    print(('max' + f + f + f + f).\
           format(maximum[0], maximum[1], maximum[2], maximum[3]))
     
     return
@@ -96,7 +96,7 @@ def init_game(nmarkets, scale):
     
     return buyer, seller, arbiters, markets
 
-f = ' {:7.4f}'
+
 def print_agents(buyer, arbiters, seller):
     
     d = ' $:'
@@ -123,17 +123,12 @@ def print_markets(markets):
     return
 
 def print_market(market):
-#    string = 'ASK:' + f + ' BID:' + f
-#    print(string.format(market.orderbook.ask, market.orderbook.bid))
-#     print('stats')
-#     for i in market.stats:
-#         print(i)
 
     for trans in market.transactions:
-        print('Transaction # {:3}    Price: {:10.4f} '.format(trans[0], trans[1]))
+        print(('Transaction # {:3}    Price:' + f).format(trans[0], trans[1]))
         print('Orderbook')
         for orders in trans[2]:
-            print('ASK: {:10.4f} BID: {:10.4f}'.format(orders[0], orders[1]))
+            print(('ASK:' + f + ' BID:' + f).format(orders[0], orders[1]))
         print('\n')
 
     return
@@ -151,7 +146,7 @@ def seller_arbitrageur_buyer_game(ngames=1000, nmarkets=2, maxiterations=100, pr
         while(loop):
             for index, market in enumerate(markets):
                 trade, ask, bid, price = market.time_step()
-                if print_level > 0: print_markets(markets)                
+#                if print_level > 0: print_markets(markets)
                 if trade:
                     if print_level > 0:
                         print('trade was made in market ', index)
@@ -163,16 +158,21 @@ def seller_arbitrageur_buyer_game(ngames=1000, nmarkets=2, maxiterations=100, pr
             iterations += 1
         
         for i, market in enumerate(markets[:index]):
-            if print_level > 0: print('ask is settled in market ', i)
-            market.settle_ask()
-            if print_level > 0: print_agents(buyer, arbiters, seller)
-            if print_level > 0: print_markets(markets)
-            
-        for i, market in enumerate(markets[index+1:]):
             if print_level > 0: print('bid is settled in market ', i)
             market.settle_bid()
-            if print_level > 0: print_agents(buyer, arbiters, seller)
-            if print_level > 0: print_markets(markets)
+
+            if print_level > 0:
+                print_markets(markets)
+                print_agents(buyer, arbiters, seller)
+
+            
+        for i, market in enumerate(markets[index+1:]):
+            if print_level > 0: print('ask is settled in market ', i)
+            market.settle_ask()
+            if print_level > 0:
+                print_markets(markets)
+                print_agents(buyer, arbiters, seller)
+
             
     print_markets(markets)
     print_agents(buyer, arbiters, seller)
