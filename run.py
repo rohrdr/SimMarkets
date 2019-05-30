@@ -116,7 +116,8 @@ def print_agents(buyer, arbiters, seller):
 
 def print_markets(markets):
     
-    for market in markets:
+    for i, market in enumerate(markets):
+        print('MARKET {}'.format(i))
         print_market(market)
     
     return
@@ -124,11 +125,17 @@ def print_markets(markets):
 def print_market(market):
 #    string = 'ASK:' + f + ' BID:' + f
 #    print(string.format(market.orderbook.ask, market.orderbook.bid))
-    print('stats')
-    print(market.stats)
-    print('transactions')
-    print(market.transactions)
-    
+#     print('stats')
+#     for i in market.stats:
+#         print(i)
+
+    for trans in market.transactions:
+        print('Transaction # {:3}    Price: {:10.4f} '.format(trans[0], trans[1]))
+        print('Orderbook')
+        for orders in trans[2]:
+            print('ASK: {:10.4f} BID: {:10.4f}'.format(orders[0], orders[1]))
+        print('\n')
+
     return
 
 def seller_arbitrageur_buyer_game(ngames=1000, nmarkets=2, maxiterations=100, print_level=0):
@@ -169,12 +176,6 @@ def seller_arbitrageur_buyer_game(ngames=1000, nmarkets=2, maxiterations=100, pr
             
     print_markets(markets)
     print_agents(buyer, arbiters, seller)
-            
-#        stats1.append([ask1, bid1, price1, iterations1])
-#        stats2.append([ask2, bid2, price2, iterations2])
-    
-#    print_stats(stats1)
-#    print_stats(stats2)
     
     return
 
@@ -182,7 +183,7 @@ def main():
 
 #    seller_buyer_game(ngames=10, print_level=0)
     
-    seller_arbitrageur_buyer_game(ngames=10, print_level=0)
+    seller_arbitrageur_buyer_game(ngames=1, print_level=0)
 
 if __name__ == "__main__":
     main()

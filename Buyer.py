@@ -4,12 +4,13 @@ import numpy as np
 
 class Buyer():
     
-    def __init__(self, money=1, goods=0, value=0.8, low=0.0):
+    def __init__(self, name, money=1, goods=0, value=0.8, low=0.0):
         
         self.money = money
         self.goods = goods
         self.value = value
         self.low = low
+        self.name = name
         
         return
     

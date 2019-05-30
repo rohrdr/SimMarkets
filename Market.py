@@ -74,14 +74,15 @@ class Market():
     def make_transaction(self, price):
         
         self.transactions.append([
+                self.ntransactions,
                 price,
-                self.ntransactions
+                [*self.stats]
                 ])
     
         self.make_trade(price)
         self.ntransactions += 1
-        
-    
+        self.stats = []
+
         return
 
 
