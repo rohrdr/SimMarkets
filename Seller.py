@@ -4,7 +4,7 @@ import numpy as np
 
 class Seller():
     
-    def __init__(self, money=0, goods=1, cost=0.3, high=1.0):
+    def __init__(self, money, goods, cost, high):
         
         self.money = money
         self.goods = goods

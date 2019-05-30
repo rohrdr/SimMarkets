@@ -4,7 +4,7 @@ import numpy as np
 
 class Arbitrageur():
     
-    def __init__(self, money=0, goods=0, cost=1.0, value=0.0, low=0.0, high=1.0):
+    def __init__(self, money, goods, cost, value, low, high):
         
         self.money = money
         self.goods = goods
