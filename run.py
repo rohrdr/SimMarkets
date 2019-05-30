@@ -183,7 +183,7 @@ def main():
 
 #    seller_buyer_game(ngames=10, print_level=0)
     
-    seller_arbitrageur_buyer_game(ngames=1, print_level=0)
+    seller_arbitrageur_buyer_game(ngames=1, print_level=1)
 
 if __name__ == "__main__":
     main()
